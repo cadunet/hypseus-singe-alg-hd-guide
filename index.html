@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Guia de configuração técnica, tutoriais de instalação, estrutura de pastas e criação de arquivos BAT para os jogos remasterizados em HD da American Laser Games no emulador Hypseus Singe.">
+  <meta name="keywords" content="Hypseus Singe, American Laser Games, Mad Dog McCree, Crime Patrol, Emulador, Laserdisc, Guia, Instalação, Retro Gaming">
+  <meta name="author" content="Cadu Vasconcelos">
+  <meta name="robots" content="index, follow">
+  <title>Documentação Hypseus Singe (American Laser Games)</title>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/128/1021/1021340.png">
+  <style>
+    body {
+      background-color: #0b0f19;
+      color: #c9d1d9;
+      font-family: 'Consolas', 'Courier New', monospace;
+      padding: 40px;
+      max-width: 1050px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    a {
+      color: #7ee787;
+      text-decoration: none;
+      word-break: break-all;
+    }
+    a:hover {
+      color: #aff5b4;
+      text-decoration: underline;
+    }
+    .header {
+      border: 2px solid #30363d;
+      background-color: #161b22;
+      padding: 20px;
+      text-align: center;
+      border-radius: 6px;
+    }
+    h1 {
+      color: #58a6ff;
+      margin: 0;
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .header-icon {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+    }
+    p.sub {
+      color: #c9d1d9;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .section-title {
+      background-color: #21262d;
+      color: #79c0ff;
+      padding: 10px 15px;
+      border-left: 4px solid #1f6feb;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .box {
+      background-color: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    .game-item {
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+    .game-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+    .tip-box {
+      background-color: #1f242d;
+      border-left: 4px solid #d29922;
+      color: #e3b341;
+      padding: 10px 15px;
+      margin-top: 15px;
+      border-radius: 0 4px 4px 0;
+      font-size: 15px;
+    }
+    .warning-box {
+      background-color: #271c1c;
+      border-left: 4px solid #f85149;
+      color: #ff7b72;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border-radius: 0 4px 4px 0;
+      font-size: 15px;
+    }
+    pre {
+      background-color: #010409;
+      color: #a5d6ff;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid #30363d;
+      font-size: 16px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    ul, ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .tree-comment {
+      color: #c9d1d9;
+    }
+
+    .highlight {
+      color: #D97BFF;
+    }
+    .badge-hd {
+      background-color: #1f6feb;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-left: 6px;
+    }
+    .directory {
+      color: #d19a66 !important;
+      font-weight: bold;
+    }
+    .file {
+      color: #56b6c2 !important;
+      font-weight: normal;
+    }
+    .symbol {
+      color: #8b949e !important;
+      font-weight: normal;
+    }
+    .code-container {
+      position: relative;
+    }
+    .copy-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background-color: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .copy-btn:hover {
+      background-color: #30363d;
+      color: #58a6ff;
+    }
+    .param-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .param-list li {
+      margin-bottom: 8px;
+      border-bottom: 1px dashed #21262d;
+      padding-bottom: 4px;
+    }
+    .credits-item {
+      margin-bottom: 15px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #21262d;
+    }
+    .credits-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .footer {
+      border-top: 1px solid #30363d;
+      margin-top: 50px;
+      padding: 25px 0;
+      text-align: center;
+      color: #8b949e;
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+        font-size: 14px;
+      }
+      h1 {
+        font-size: 20px;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .header, .box {
+        padding: 12px;
+      }
+      pre {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" style="position: relative;">
+    <div style="text-align: right; width: 100%; margin-top: 25px;">
+      <img src="https://cdn-icons-png.flaticon.com/128/3955/3955549.png" width="45" height="45" border="0" alt="Bandeira do Brasil" style="position: absolute; top: -2px; right: 3px;">
+    </div>
+
+    <h1>
+      <img src="https://cdn-icons-png.flaticon.com/128/1021/1021340.png" alt="Arcade Machine Icon" class="header-icon">
+        Guia de Configuração: Hypseus Singe (American Laser Games)
+    </h1>
+    <p class="sub" style="margin-top: 8px;">Este guia serve como documentação técnica completa para a instalação, organização de pastas, extração de dados e criação de arquivos de execução .bat no emulador Hypseus Singe, com foco nos jogos clássicos da American Laser Games em versão remasterizada, qualidade HD e proporção original 4:3 (1080p).</p>
+  </header>
+
+  <main>
+    <section>
+      <div class="section-title">1. PACOTES NECESSÁRIOS E REPOSITÓRIOS</div>
+      <div class="box">
+        <p style="margin-top: 0;">Baixe os pacotes essenciais do repositório oficial no GitHub (<a href="https://github.com/DirtBagXon/hypseus-singe" target="_blank" rel="noopener noreferrer">github.com/DirtBagXon/hypseus-singe</a>) e do acervo no Archive.org (<a href="https://archive.org/details/@dirtbagxon" target="_blank" rel="noopener noreferrer">archive.org/details/@dirtbagxon</a>):</p>
+        <ol>
+          <li><span class="highlight">Emulador Base:</span> <a href="https://github.com/DirtBagXon/hypseus-singe/releases/download/v3.0.2/Hypseus.Singe-v3.0.2-nag-win64.zip" target="_blank" rel="noopener noreferrer">hypseus.singe-v3.0.2-nag-win64.zip</a> (Versão para Windows 64-bits).</li>
+          <li><span class="highlight">Arquivos Data (Singe 2):</span> <a href="https://github.com/DirtBagXon/hypseus_singe_data/archive/refs/tags/v3.0.1-1.zip" target="_blank" rel="noopener noreferrer">hypseus_singe_data-3.0.1-1.zip</a>.</li>
+          <li><span class="highlight">Scripts de Inicialização (BAT):</span> <a href="https://github.com/DirtBagXon/hypseus-singe/releases/download/v2.11.7/windows-batch-files-v2.11.7.zip" target="_blank" rel="noopener noreferrer">windows-batch-files-v2.11.7.zip</a>.</li>
+          <li><span class="highlight">Molduras (Bezels):</span> <a href="https://github.com/DirtBagXon/hypseus-singe/releases/download/v2.11.2/Bezels_Pack.zip" target="_blank" rel="noopener noreferrer">bezels_pack.zip</a>.</li>
+        </ol>
+        <div class="tip-box">
+          <strong>💡 DICA:</strong> Procure sempre verificar no repositório oficial do GitHub se há versões mais recentes do emulador base e dos arquivos complementares para garantir correções de bugs e novas melhorias de desempenho.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">2. DOWNLOAD DOS ARQUIVOS DO JOGO DE MÍDIA EM HD (1080p)</div>
+      <div class="box">
+        <p style="margin-top: 0;">Todos os pacotes de mídia listados abaixo foram remasterizados na altura de <strong>1080p (29.97 FPS)</strong> preservando a proporção nativa de época de <strong>4:3</strong> (ex: 1440x1080). Isso garante a nitidez sem distorcer os elementos na tela e mantém o alinhamento correto das miras.</p>
+        
+        <div class="game-item">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 18px;">1. Mad Dog McCree <span style="color: #8b949e; font-size: 14px; font-weight: normal;">(1990)</span> <span class="badge-hd">1440x1080 (4:3)</span></p>
+          <p style="margin: 4px 0;"><strong>Tamanho do Pacote:</strong> ~2,69 GB | <strong>Mídia Principal:</strong> <span class="file">maddog.m2v</span> (1,35 GB) e <span class="file">maddog.ogg</span> (21,2 MB)</p>
+          <ul style="list-style-type: none; padding-left: 0; margin-top: 6px;">
+            <li>⚡ <strong>Opção 1 (Torrent):</strong> <a href="https://archive.org/download/hypseus_singe_maddog1-hd/hypseus_singe_maddog1-hd_archive.torrent" target="_blank" rel="noopener noreferrer">hypseus_singe_maddog1-hd_archive.torrent</a></li>
+            <li>📦 <strong>Opção 2 (Arquivo ZIP):</strong> <a href="https://archive.org/compress/hypseus_singe_maddog1-hd/formats=ZIP&amp;file=/hypseus_singe_maddog1-hd.zip" target="_blank" rel="noopener noreferrer">hypseus_singe_maddog1-hd.zip</a></li>
+          </ul>
+        </div>
+
+        <div class="game-item">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 18px;">2. Mad Dog II - The Lost Gold <span style="color: #8b949e; font-size: 14px; font-weight: normal;">(1992)</span> <span class="badge-hd">1584x1080 (4:3)</span></p>
+          <p style="margin: 4px 0;"><strong>Tamanho do Pacote:</strong> ~4,93 GB | <strong>Mídia Principal:</strong> <span class="file">maddog2.m2v</span> (2,65 GB) e <span class="file">maddog2.ogg</span> (30,0 MB)</p>
+          <ul style="list-style-type: none; padding-left: 0; margin-top: 6px;">
+            <li>⚡ <strong>Opção 1 (Torrent):</strong> <a href="https://archive.org/download/hypseus_singe_maddog2-hd/hypseus_singe_maddog2-hd_archive.torrent" target="_blank" rel="noopener noreferrer">hypseus_singe_maddog2-hd_archive.torrent</a></li>
+            <li>📦 <strong>Opção 2 (Arquivo ZIP):</strong> <a href="https://archive.org/compress/hypseus_singe_maddog2-hd/formats=ZIP&amp;file=/hypseus_singe_maddog2-hd.zip" target="_blank" rel="noopener noreferrer">hypseus_singe_maddog2-hd.zip</a></li>
+          </ul>
+        </div>
+
+        <div class="game-item">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 18px;">3. Crime Patrol <span style="color: #8b949e; font-size: 14px; font-weight: normal;">(1993)</span> <span class="badge-hd">1440x1080 (4:3)</span></p>
+          <p style="margin: 4px 0;"><strong>Tamanho do Pacote:</strong> ~2,54 GB | <strong>Mídia Principal:</strong> <span class="file">crimepatrol.m2v</span> (1,33 GB) e <span class="file">crimepatrol.ogg</span> (34,1 MB)</p>
+          <ul style="list-style-type: none; padding-left: 0; margin-top: 6px;">
+            <li>⚡ <strong>Opção 1 (Torrent):</strong> <a href="https://archive.org/download/hypseus_singe_crimepatrol-hd/hypseus_singe_crimepatrol-hd_archive.torrent" target="_blank" rel="noopener noreferrer">hypseus_singe_crimepatrol-hd_archive.torrent</a></li>
+            <li>📦 <strong>Opção 2 (Arquivo ZIP):</strong> <a href="https://archive.org/compress/hypseus_singe_crimepatrol-hd/formats=ZIP&amp;file=/hypseus_singe_crimepatrol-hd.zip" target="_blank" rel="noopener noreferrer">hypseus_singe_crimepatrol-hd.zip</a></li>
+          </ul>
+        </div>
+
+        <div class="game-item">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 18px;">4. Crime Patrol 2: Drug Wars <span style="color: #8b949e; font-size: 14px; font-weight: normal;">(1993)</span> <span class="badge-hd">1440x1080 (4:3)</span></p>
+          <p style="margin: 4px 0;"><strong>Tamanho do Pacote:</strong> ~2,88 GB | <strong>Mídia Principal:</strong> <span class="file">drugwars.m2v</span> (1,49 GB) e <span class="file">drugwars.ogg</span> (34,9 MB)</p>
+          <ul style="list-style-type: none; padding-left: 0; margin-top: 6px;">
+            <li>⚡ <strong>Opção 1 (Torrent):</strong> <a href="https://archive.org/download/hypseus_singe_drugwars-hd/hypseus_singe_drugwars-hd_archive.torrent" target="_blank" rel="noopener noreferrer">hypseus_singe_drugwars-hd_archive.torrent</a></li>
+            <li>📦 <strong>Opção 2 (Arquivo ZIP):</strong> <a href="https://archive.org/compress/hypseus_singe_drugwars-hd/formats=ZIP&amp;file=/hypseus_singe_drugwars-hd.zip" target="_blank" rel="noopener noreferrer">hypseus_singe_drugwars-hd.zip</a></li>
+          </ul>
+        </div>
+
+        <div class="game-item">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 18px;">5. Who Shot Johnny Rock? <span style="color: #8b949e; font-size: 14px; font-weight: normal;">(1991)</span> <span class="badge-hd">1440x1080 (4:3)</span></p>
+          <p style="margin: 4px 0;"><strong>Tamanho do Pacote:</strong> ~3,04 GB | <strong>Mídia Principal:</strong> <span class="file">johnnyrock.m2v</span> (1,30 GB) e <span class="file">johnnyrock.ogg</span> (28,0 MB)</p>
+          <ul style="list-style-type: none; padding-left: 0; margin-top: 6px;">
+            <li>⚡ <strong>Opção 1 (Torrent):</strong> <a href="https://archive.org/download/hypseus_singe_johnnyrocknoir/hypseus_singe_johnnyrocknoir_archive.torrent" target="_blank" rel="noopener noreferrer">hypseus_singe_johnnyrocknoir_archive.torrent</a></li>
+            <li>📦 <strong>Opção 2 (Arquivo ZIP):</strong> <a href="https://archive.org/compress/hypseus_singe_johnnyrocknoir/formats=ZIP&amp;file=/hypseus_singe_johnnyrocknoir.zip" target="_blank" rel="noopener noreferrer">hypseus_singe_johnnyrocknoir.zip</a></li>
+          </ul>
+        </div>
+
+        <div class="game-item">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 18px;">6. The Last Bounty Hunter <span style="color: #8b949e; font-size: 14px; font-weight: normal;">(1994)</span> <span class="badge-hd">1600x1080 (4:3)</span></p>
+          <p style="margin: 4px 0;"><strong>Tamanho do Pacote:</strong> ~3,55 GB | <strong>Mídia Principal:</strong> <span class="file">lbh.m2v</span> (1,81 GB) e <span class="file">lbh.ogg</span> (30,9 MB)</p>
+          <ul style="list-style-type: none; padding-left: 0; margin-top: 6px;">
+            <li>⚡ <strong>Opção 1 (Torrent):</strong> <a href="https://archive.org/download/hypseus_singe_lbh-hd/hypseus_singe_lbh-hd_archive.torrent" target="_blank" rel="noopener noreferrer">hypseus_singe_lbh-hd_archive.torrent</a></li>
+            <li>📦 <strong>Opção 2 (Arquivo ZIP):</strong> <a href="https://archive.org/compress/hypseus_singe_lbh-hd/formats=ZIP&amp;file=/hypseus_singe_lbh-hd.zip" target="_blank" rel="noopener noreferrer">hypseus_singe_lbh-hd.zip</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">3. ESTRUTURA DE PASTAS E EXTRAÇÃO DOS ARQUIVOS</div>
+      <div class="box">
+        <div class="warning-box">
+          <strong>⚠️ ATENÇÃO (CASE SENSITIVITY):</strong> O motor de emulação Singe diferencia estritamente letras <strong>MAIÚSCULAS</strong> e <strong>MINÚSCULAS</strong>. Tenha cuidado com a variação de letras ao nomear pastas e arquivos para evitar erros de inicialização.
+        </div>
+        <p style="margin-top: 0;">Na pasta raiz do emulador (exemplo: <span class="directory">Hypseus Singe</span><span class="symbol">/</span>), extraia e crie as seguintes pastas:</p>
+        <ol>
+          <li><span class="highlight">Bezels:</span> Extraia o conteúdo de <span class="file">bezels_pack.zip</span> para a pasta <span class="directory">bezels</span><span class="symbol">/</span>.</li>
+          <li><span class="highlight">Data:</span> Crie a pasta <span class="directory">data</span><span class="symbol">/</span> e extraia o arquivo <span class="file">hypseus_singe_data-3.0.1-1.zip</span> nela.</li>
+          <li><span class="highlight">Scripts:</span> Crie a pasta <span class="directory">scripts</span><span class="symbol">/</span> e extraia o <span class="file">windows-batch-files-v2.11.7.zip</span> nela.</li>
+          <li><span class="highlight">Jogos Customizados:</span> Crie a pasta <span class="directory">games</span><span class="symbol">/</span> na raiz do Hypseus Singe e monte a estrutura de subpastas por jogo:
+            <ul style="margin-top: 5px; list-style-type: square;">
+              <li><span class="directory">games/maddog</span><span class="symbol">/</span></li>
+              <li><span class="directory">games/maddog2</span><span class="symbol">/</span></li>
+              <li><span class="directory">games/crimepatrol</span><span class="symbol">/</span></li>
+              <li><span class="directory">games/crimepatrol2</span><span class="symbol">/</span></li>
+              <li><span class="directory">games/johnnyrock</span><span class="symbol">/</span></li>
+              <li><span class="directory">games/thelastbountyhunter</span><span class="symbol">/</span></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">4. CÓPIA DA PASTA FRAMEWORK E DA PASTA DOS JOGOS</div>
+      <div class="box">
+        <p style="margin-top: 0;">Dentro de <span class="directory">data/00-singe2</span><span class="symbol">/</span>, realize as cópias necessárias para a pasta <span class="directory">singe</span><span class="symbol">/</span> na raiz do emulador:</p>
+        <ol>
+          <li><span class="highlight">Framework:</span> Copie a pasta <span class="directory">Framework</span><span class="symbol">/</span> que está dentro de <span class="directory">data/00-singe2</span><span class="symbol">/</span> e cole diretamente na pasta <span class="directory">singe</span><span class="symbol">/</span>.</li>
+          <li><span class="highlight">Pastas dos Jogos (HD):</span> Copie as pastas referentes a cada jogo contidas em <span class="directory">data/00-singe2</span><span class="symbol">/</span> para dentro de <span class="directory">singe</span><span class="symbol">/</span> (respeitando o padrão exato, ex: <span class="directory">Maddog_HD</span><span class="symbol">/</span>):
+            <ul style="margin-top: 5px; list-style-type: square;">
+              <li><span class="directory">Maddog_HD</span><span class="symbol">/</span></li>
+              <li><span class="directory">Maddog2_HD</span><span class="symbol">/</span></li>
+              <li><span class="directory">CP_HD</span><span class="symbol">/</span></li>
+              <li><span class="directory">CP2DW_HD</span><span class="symbol">/</span></li>
+              <li><span class="directory">WSJR_HD</span><span class="symbol">/</span></li>
+              <li><span class="directory">LBH_HD</span><span class="symbol">/</span></li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">5. ALOCAÇÃO DOS ARQUIVOS DE VÍDEO E ÁUDIO (.m2v e .ogg)</div>
+      <div class="box">
+        <p style="margin-top: 0;">Coloque os arquivos de vídeo (.m2v) e áudio (.ogg) dentro do diretório <span class="directory">Video</span><span class="symbol">/</span> de cada jogo:</p>
+        <ul style="margin-top: 5px; list-style-type: square;">
+          <li><span class="highlight">Mad Dog McCree:</span> Cole <span class="file">maddog.m2v</span> e <span class="file">maddog.ogg</span> em <span class="directory">singe\Maddog_HD\Video</span><span class="symbol">\</span></li>
+          <li><span class="highlight">Mad Dog II - The Lost Gold:</span> Cole <span class="file">maddog2.m2v</span> e <span class="file">maddog2.ogg</span> em <span class="directory">singe\Maddog2_HD\Video</span><span class="symbol">\</span></li>
+          <li><span class="highlight">Crime Patrol:</span> Cole <span class="file">crimepatrol.m2v</span> e <span class="file">crimepatrol.ogg</span> em <span class="directory">singe\CP_HD\Video</span><span class="symbol">\</span></li>
+          <li><span class="highlight">Crime Patrol 2 - Drug Wars:</span> Cole <span class="file">drugwars.m2v</span> e <span class="file">drugwars.ogg</span> em <span class="directory">singe\CP2DW_HD\Video</span><span class="symbol">\</span></li>
+          <li><span class="highlight">Who Shot Johnny Rock?:</span> Cole <span class="file">johnnyrock.m2v</span> e <span class="file">johnnyrock.ogg</span> em <span class="directory">singe\WSJR_HD\Video</span><span class="symbol">\</span></li>
+          <li><span class="highlight">The Last Bounty Hunter:</span> Cole <span class="file">lbh.m2v</span> e <span class="file">lbh.ogg</span> em <span class="directory">singe\LBH_HD\Video</span><span class="symbol">\</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">6. EXEMPLO DE ARQUIVO .BAT E DESCRIÇÃO DOS PARÂMETROS</div>
+      <div class="box">
+        <p style="margin-top: 0;">Pegue o arquivo base com suporte a mouse na pasta <span class="directory">scripts</span><span class="symbol">/</span>, copie para a pasta <span class="directory">games\maddog</span><span class="symbol">\</span> e renomeie conforme o padrão:</p>
+        <p><strong>Caminho:</strong> <span class="directory">games\maddog</span><span class="symbol">\</span><span class="file">Mad Dog McCree (EUA) (HD).bat</span></p>
+        <p><strong>CONTEÚDO DO ARQUIVO .BAT:</strong></p>
+        <div class="code-container">
+          <pre id="batCode" style="padding-bottom: 45px;">..\..\hypseus.exe singe vldp -framefile singe\Maddog_HD\Maddog_HD.txt -script singe\Maddog_HD\Maddog_HD.singe -fullscreen -force_aspect_ratio -blend_sprites -volume_nonvldp 5 -volume_vldp 20 -js_range 7 -manymouse -scanlines -scanline_shunt 3 -bezel /singe/gungames/maddog.png
+
+REM Optional:
+REM -nocrosshair
+
+PAUSE</pre>
+          <button class="copy-btn" onclick="copyBatCode()">Copiar código</button>
+        </div>
+        <p style="margin-top: 15px;"><strong>DESCRIÇÃO DOS PARÂMETROS DO COMANDO:</strong></p>
+        <ul class="param-list">
+          <li><span class="highlight">..\..\hypseus.exe :</span> Executável do emulador localizado duas pastas acima do arquivo .bat.</li>
+          <li><span class="highlight">singe vldp :</span> Define o modo do emulador para executar jogos do motor Singe com suporte a vídeo (Video Laserdisc Player).</li>
+          <li><span class="highlight">-framefile singe\... :</span> Aponta para o arquivo .txt que mapeia a sincronização de quadros e áudio do vídeo HD.</li>
+          <li><span class="highlight">-script singe\... :</span> Aponta para o script em Lua (.singe) que contém a lógica do jogo (pontuação, colisões e cenários).</li>
+          <li><span class="highlight">-fullscreen :</span> Executa o jogo em modo de tela cheia.</li>
+          <li><span class="highlight">-force_aspect_ratio :</span> Força a proporção original do vídeo (4:3) em monitores Widescreen (16:9), evitando imagem esticada e mantendo a precisão da mira.</li>
+          <li><span class="highlight">-blend_sprites :</span> Aplica transparência e suavização visual nas miras, menus e ícones sobrepostos ao vídeo.</li>
+          <li><span class="highlight">-volume_nonvldp / vldp :</span> Ajusta o volume independente dos efeitos sonoros do emulador (nonvldp) e do áudio do vídeo do jogo (vldp).</li>
+          <li><span class="highlight">-js_range 7 :</span> Define a sensibilidade e zona morta para analógicos de joysticks e dispositivos de mira.</li>
+          <li><span class="highlight">-manymouse :</span> Ativa o suporte avançado a múltiplos mouses e lightguns USB independentes.</li>
+          <li><span class="highlight">-scanlines / -scanline_shunt 3 :</span> Ativa o filtro de linhas de varredura (scanlines) e ajusta o espaçamento/intensidade para simular uma tela CRT antiga.</li>
+          <li><span class="highlight">-bezel /singe/gungames/maddog.png :</span> Carrega a arte da moldura lateral para preencher as barras pretas em monitores 16:9.</li>
+          <li><span class="highlight">REM -nocrosshair :</span> Comando comentado (REM); se o REM for removido, oculta a mira da tela para uma experiência arcade real.</li>
+          <li><span class="highlight">PAUSE :</span> Mantém a janela do terminal aberta após fechar o jogo para facilitar o diagnóstico em caso de erros.</li>        
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">DOCUMENTAÇÃO OFICIAL DE PARÂMETROS</div>
+      <div class="box">
+        <p style="margin: 0;">
+          <a href="https://github.com/DirtBagXon/hypseus-singe/blob/master/doc/CmdLine.md" target="_blank" rel="noopener noreferrer">
+            Documentação de Comandos (CmdLine.md)
+          </a> — Guia completo no GitHub do desenvolvedor do Hypseus Singe. Acesse o repositório oficial para consultar a lista completa, atualizada e detalhada de todas as flags e argumentos suportados.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">7. VISÃO GERAL DA ÁRVORE DE ARQUIVOS</div>
+<pre><span class="directory">Hypseus Singe</span><span class="symbol">/</span>
+<span class="symbol">├── </span><span class="directory">scripts</span><span class="symbol">/</span>                     <span class="tree-comment">(Modelos originais de scripts e arquivos .bat)</span>
+<span class="symbol">├── </span><span class="directory">bezels</span><span class="symbol">/</span>                      <span class="tree-comment">(Imagens e molduras dos bezels)</span>
+<span class="symbol">├── </span><span class="directory">data</span><span class="symbol">/</span>                        <span class="tree-comment">(Armazena os dados base e a pasta 00-singe2)</span>
+<span class="symbol">│   └── </span><span class="directory">00-singe2</span><span class="symbol">/</span>
+<span class="symbol">├── </span><span class="directory">games</span><span class="symbol">/</span>                       <span class="tree-comment">(Pasta customizada com os arquivos .bat)</span>
+<span class="symbol">│   ├── </span><span class="directory">maddog</span><span class="symbol">/</span>                  <span class="symbol">&rarr;</span> <span class="file">Mad Dog McCree (EUA) (HD).bat</span>
+<span class="symbol">│   ├── </span><span class="directory">maddog2</span><span class="symbol">/</span>                 <span class="symbol">&rarr;</span> <span class="file">Mad Dog II The Lost Gold (EUA) (HD).bat</span>
+<span class="symbol">│   ├── </span><span class="directory">crimepatrol</span><span class="symbol">/</span>             <span class="symbol">&rarr;</span> <span class="file">Crime Patrol (EUA) (HD).bat</span>
+<span class="symbol">│   ├── </span><span class="directory">crimepatrol2</span><span class="symbol">/</span>            <span class="symbol">&rarr;</span> <span class="file">Crime Patrol 2 Drug Wars (EUA) (HD).bat</span>
+<span class="symbol">│   ├── </span><span class="directory">johnnyrock</span><span class="symbol">/</span>              <span class="symbol">&rarr;</span> <span class="file">Who Shot Johnny Rock (EUA) (HD).bat</span>
+<span class="symbol">│   └── </span><span class="directory">thelastbountyhunter</span><span class="symbol">/</span>     <span class="symbol">&rarr;</span> <span class="file">The Last Bounty Hunter (EUA) (HD).bat</span>
+<span class="symbol">├── </span><span class="directory">singe</span><span class="symbol">/</span>                       <span class="tree-comment">(Arquivos do mecanismo Singe)</span>
+<span class="symbol">│   ├── </span><span class="directory">Framework</span><span class="symbol">/</span>               <span class="tree-comment">(Copiado de data/00-singe2/Framework)</span>
+<span class="symbol">│   ├── </span><span class="directory">Maddog_HD</span><span class="symbol">/</span>               <span class="tree-comment">(Copiado de data/00-singe2/Maddog_HD)</span>
+<span class="symbol">│   │   ├── </span><span class="directory">Video</span><span class="symbol">/</span>               <span class="symbol">&rarr;</span> <span class="file">maddog.m2v</span> e <span class="file">maddog.ogg</span>
+<span class="symbol">│   │   ├── </span><span class="file">Maddog_HD.singe</span>
+<span class="symbol">│   │   └── </span><span class="file">Maddog_HD.txt</span>
+<span class="symbol">│   ├── </span><span class="directory">Maddog2_HD</span><span class="symbol">/</span>
+<span class="symbol">│   ├── </span><span class="directory">CP_HD</span><span class="symbol">/</span>
+<span class="symbol">│   ├── </span><span class="directory">CP2DW_HD</span><span class="symbol">/</span>
+<span class="symbol">│   ├── </span><span class="directory">WSJR_HD</span><span class="symbol">/</span>
+<span class="symbol">│   └── </span><span class="directory">LBH_HD</span><span class="symbol">/</span>
+<span class="symbol">└── </span><span class="file">hypseus.exe</span></pre>
+    </section>
+
+    <section>
+      <div class="section-title">8. COMANDOS E TECLAS DE ATALHO DO EMULADOR</div>
+        <div class="box">
+          <pre class="section-8-pre" style="border: none; padding: 0; background: transparent;">
+  <span class="highlight">[ CONTROLES DO PAINEL / ARCADE ]</span>
+      <span class="tree-comment">5               : Adicionar Ficha (Insert Coin)</span>
+      <span class="tree-comment">1               : Iniciar Jogo (1 Player Start)</span>
+
+  <span class="highlight">[ CONTROLES DE MIRA E TIRO ]</span>
+      <span class="tree-comment">Mouse           : Mover a Mira na Tela</span>
+      <span class="tree-comment">Clique Esq.     : Atirar (Espaço)</span>
+      <span class="tree-comment">Clique Dir.     : Recarregar Arma (Ctrl Esquerdo)</span>
+
+  <span class="highlight">[ TECLAS DO EMULADOR (HYPSEUS / SINGE) ]</span>
+      <span class="tree-comment">ESC             : Sair do Jogo</span>
+      <span class="tree-comment">9               : Menu de Opções</span>
+      <span class="tree-comment">P               : Pausar o Jogo</span>
+      <span class="tree-comment">Alt+Backspace   : Ligar / Desligar Scanlines</span>
+      <span class="tree-comment">F12             : Capturar Tela (Screenshot)</span>
+        </pre>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">9. CRÉDITOS &amp; AGRADECIMENTOS ESPECIAIS</div>
+      <div class="box">
+        <div class="credits-item">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 17px;">🎮 DirtBagXon (Developer &amp; Maintainer)</p>
+          <p style="margin: 6px 0 8px 0;">Huge thanks to <strong>DirtBagXon</strong>, the lead developer responsible for the ongoing evolution of the <em>Hypseus Singe</em> project, as well as for the meticulous HD remastering (1080p), adaptation, and historical preservation of all classic Laserdisc games from <em>American Laser Games</em>.</p><br>
+          <p style="margin: 0; font-size: 15px;">Follow official repositories and updates:</p>
+          <ul style="margin-top: 4px; list-style-type: square;">
+            <li>🌐 <strong>Archive.org (HD Collection):</strong> <a href="https://archive.org/details/@dirtbagxon" target="_blank" rel="noopener noreferrer">archive.org/details/@dirtbagxon</a></li>
+            <li>💻 <strong>GitHub (Source Code &amp; Releases):</strong> <a href="https://github.com/DirtBagXon" target="_blank" rel="noopener noreferrer">github.com/DirtBagXon</a></li>
+            <li>📺 <strong>YouTube (Demos &amp; Updates):</strong> <a href="https://www.youtube.com/@DirtBagXon" target="_blank" rel="noopener noreferrer">youtube.com/@DirtBagXon</a></li>
+          </ul>
+        </div>
+
+        <div class="credits-item" style="margin-top: 15px;">
+          <p style="margin: 0; font-weight: bold; color: #58a6ff; font-size: 17px;">📺 Edivandro Martins (Tutorial no YouTube)</p>
+          <p style="margin: 6px 0 8px 0;">Muito obrigado, Edivandro, por toda a dedicação, suporte e excelente trabalho prestado! Sua contribuição e seu tutorial detalhado foram fundamentais para ajudar a comunidade a configurar este emulador.</p><br>
+          <p style="margin: 0; font-size: 15px;">Acompanhe o vídeo tutorial de referência e o canal:</p>
+          <ul style="margin-top: 4px; list-style-type: square;">
+            <li>▶️ <strong>Vídeo Tutorial em Destaque:</strong> <a href="https://youtu.be/7kW28aKyOD8?si=aLme4LZuwV_GmyNq" target="_blank" rel="noopener noreferrer">Hypseus Singe 2.11 + LaunchBox (PT-BR)</a></li>
+            <li>▶️ <strong>Canal do YouTube:</strong> <a href="https://www.youtube.com/@eddymartins9679" target="_blank" rel="noopener noreferrer">youtube.com/@eddymartins9679</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://giscus.app/client.js"
+          data-repo="caduvdes/hypseus-singe-alg-hd-guide"
+          data-repo-id="R_kgDOUV1PyQ"
+          data-category="General"
+          data-category-id="DIC_kwDOUV1Pyc4DFVx0"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="dark"
+          data-lang="pt"
+          crossorigin="anonymous"
+          async>
+  </script>
+
+  <footer class="footer">
+    <p style="margin: 12px 0 8px 0; text-align: center;">
+      <span style="background-color: #21262d; border: 1px solid #30363d; padding: 4px 12px; border-radius: 12px; font-size: 14px; color: #8b949e;">
+        📅 Guia atualizado em: <strong style="color: #c9d1d9;">10 de Setembro de 2026</strong>
+      </span>
+    </p>
+    
+    <p style="margin: 0; color: #79c0ff; font-weight: bold; font-size: 18px;">Guia de Configuração: Hypseus Singe (American Laser Games)</p>
+    <p style="margin: 6px 0 0 0; font-size: 14px;">Copyright &copy; <span id="year"></span> <strong>CaduNet.</strong> Desenvolvido por <a href="#" style="font-weight: bold;">Cadu Vasconcelos</a></p>
+    <p style="margin: 3px 0 0 0; font-size: 14px; color: #8b949e;">Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    function copyBatCode() {
+      const codeText = document.getElementById("batCode").innerText;
+      navigator.clipboard.writeText(codeText).then(() => {
+        const btn = document.querySelector(".copy-btn");
+        btn.innerText = "Copiado!";
+        setTimeout(() => { btn.innerText = "Copiar código"; }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
